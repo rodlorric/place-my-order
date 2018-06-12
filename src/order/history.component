@@ -1,26 +1,57 @@
 <can-component tag="pmo-order-history">
-  <style type="less">
-    display: block;
-
-    p { font-weight: bold; }
-  </style>
   <view>
-	<div class="order-history">
+    <can-import from="~/models/order" />
+
+    <div class="order-history">
       <div class="order header">
         <address>Name / Address / Phone</address>
         <div class="items">Order</div>
         <div class="total">Total</div>
         <div class="actions">Action</div>
       </div>
+
+      <can-import from="~/order/list.component" />
+      <order-model get-list="{status='new'}">
+        <pmo-order-list
+          orders:from="."
+          list-title:raw="New Orders"
+          status:raw="new"
+          status-title:raw="New Order!"
+          action:raw="preparing"
+          action-title:raw="Preparing"
+          empty-message:raw="No new orders"/>
+      </order-model>
+
+      <order-model get-list="{status='preparing'}">
+        <pmo-order-list
+          orders:from="."
+          list-title:raw="Preparing"
+          status:raw="preparing"
+          status-title:raw="Preparing"
+          action:raw="delivery"
+          action-title:raw="Out for delivery"
+          empty-message:raw="No orders preparing"/>
+      </order-model>
+
+      <order-model get-list="{status='delivery'}">
+        <pmo-order-list
+          orders:from="."
+          list-title:raw="Out for delivery"
+          status:raw="delivery"
+          status-title:raw="Out for delivery"
+          action:raw="delivered"
+          action-title:raw="Delivered"
+          empty-message:raw="No orders are being delivered"/>
+      </order-model>
+
+      <order-model get-list="{status='delivered'}">
+        <pmo-order-list
+          orders:from="."
+          list-title:raw="Delivered"
+          status:raw="delivered"
+          status-title:raw="Delivered"
+          empty-message:raw="No delivered orders"/>
+      </order-model>
     </div>
   </view>
-  <script type="view-model">
-    import DefineMap from 'can-define/map/';
-
-    export default DefineMap.extend({
-      message: {
-        default: 'This is the pmo-order-history component'
-      }
-    });
-  </script>
 </can-component>

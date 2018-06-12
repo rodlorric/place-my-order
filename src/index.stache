@@ -13,24 +13,42 @@
     <pmo-header page:from="page"/>
 
 	{{#switch page}}
-      {{#case "home"}}
-        <can-import from="~/home.component"
-            can-tag="pmo-loading">
-          <pmo-home/>
-        </can-import>
-      {{/case}}
-      {{#case "restaurants"}}
-        <can-import from="~/restaurant/list/"
-            can-tag="pmo-loading">
-          <pmo-restaurant-list/>
-        </can-import>
-      {{/case}}
-      {{#case "order-history"}}
-        <can-import from="~/order/history.component"
-            can-tag="pmo-loading">
-          <pmo-order-history/>
-        </can-import>
-      {{/case}}
+		{{#case "home"}}
+			<can-import from="~/home.component"
+				can-tag="pmo-loading">
+			<pmo-home/>
+			</can-import>
+		{{/case}}
+		{{#case("restaurants")}}
+		{{#if(slug)}}
+			{{#switch action}}
+			{{#case 'order'}}
+				<can-import from="~/order/new/"
+					can-tag="pmo-loading">
+				<pmo-order-new slug:from="slug"/>
+				</can-import>
+			{{/case}}
+
+			{{#default}}
+				<can-import from="~/restaurant/details.component"
+					can-tag="pmo-loading">
+				<pmo-restaurant-details slug:from="slug"/>
+				</can-import>
+			{{/default}}
+			{{/switch}}
+		{{else}}
+			<can-import from="~/restaurant/list/"
+				can-tag="pmo-loading">
+			<pmo-restaurant-list/>
+			</can-import>
+		{{/if}}
+		{{/case}}
+		{{#case "order-history"}}
+			<can-import from="~/order/history.component"
+				can-tag="pmo-loading">
+			<pmo-order-history/>
+			</can-import>
+		{{/case}}
     {{/switch}}
 
     {{#switch env.NODE_ENV}}
