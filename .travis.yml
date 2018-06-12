@@ -5,3 +5,20 @@ addons:
 before_install:
   - 'export DISPLAY=:99.0'
   - sh -e /etc/init.d/xvfb start
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  app: cryptic-shore-76671
+  api_key: >-
+    Ynb7gnIivi1jDIutAr9mA1zo9WFKlzqM7sIngdIflrz0icCRPaYEtXpUz2ksY3YYAtWvsRZh+2WXP3HhX958rpPFYFI07FRzxfuhU+j8rjJrFIJLpqLWAO9nGUuKxzIyPvNVqL9oz5r34yVqN2gfomhZeVah6KhmdA41izzhIxEg3+XINKS9N2UL/qyVh4olmSZ6WnoIU890GyHBHmp+tC945mERpu/gB6Ize6ZSxPBv7g8B7mdO5bHzbiCMGRsQjZXzbPQGWmQDAqjZ+8/0TKypfR9GPwgcSAypkF7siKEo6Xa8S7zHeJLX+cNsY87S+5eW+MCNrbGw97BZRg7RLP1AweBmR4RYnyy/7zIr69cdYW8YsvDJ8/aoVHkrstmM2Uy6xhO5B8kHFIyF3osMtNvENQcwvRArYuNljbjn3luG+R3j3TDFcP56AA3Jfrm1ScPZqkJuz1r66b1o6/NruPPui7+QpggwtvOpWOGI3YaSNIuAc5A+WqMnXuN1Y4sdD/H2eGlP2LtSxEZ7qkyzPe48LfL8rBfPkIOBUWGjdQQdeQTI8srUUomdMmd0uFWAhn88GZGKE5bd7UBwD3K5TsRCZAytYqFz9n0EGDcTL6wNMFngrL9RUNFpUTzJ/aybsDzxKkeysmStjx2q1UFcM4a81HJeCJlKUNPVknQN+tg=
+before_deploy:
+  - git config --global user.email "me@example.com"
+  - git config --global user.name "deploy bot"
+  - node build
+  - git add dist/ --force
+  - git commit -m "Updating build."
+  - 'npm run deploy:ci'
+env:
+  global:
+    - secure: >-
+        hEqyrfVgGs92OeEQq+PROr3sWYhFKo8wo/lPnuGd2ISqE/gnZBkAtw2cGZ7QuRteLmRpdffH9fo1bVtxB4MMZ9TyLBAAxYXyIO6TulVqUhvleKec8/FavLux0VpdLzJFnZDmT2j0YkUHZyXho39GlRoCyQu5EYzjQ594Lgbihe0wn7CKUbJ5Ar0nvR9uaSVx2BrfvN+N/CVJh149gpaRqTb43tUr3H4jxLRpkHoEoC365TBIDgDghrqa2alMXjhl5bqWcTLFdMVRys79JopLL++qkB/RGeABMyvPL/lALFvrYRjpBhfW2YAlp8BDFJf4e6OJIDmyuOq3k0JDZEOgU6LmUVc9+7Qh7wS0963uEb+DvK9/M8Oh7mm9lGyjg70FP+jit2gRrIe41l4rGGZX9rZbP68NnxWSJiIZimDfP11PGEkP4tMNziieGtEeXfi8nnKDPR6kLRSdBvJQI/9TJcZAmM0kfaNmOB/TPccNut3tG22UlFf70sownCgYebdcm9AZ81ErqPzYrXD8VBn2W+nnuumgRU5C3R/tK9X03Nn9mHskl0zzs46Vk5uDjlBgAFa6itTS5pZdIqPknl/HNzVmm5WrirptWV157Be/7vkTgx4BRWfGq6ma4mtmEgulHxjbd3C0LjkWxpmc4s0Ml0kxkP4xXcJKVF+PtLMtAGw=
